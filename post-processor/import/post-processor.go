@@ -93,7 +93,7 @@ func (p *PostProcessor) Configure(raws ...interface{}) error {
 		p.config.Architecture = "x86_64"
 	}
 	if p.config.Platform == "" {
-		p.config.Architecture = "windows"
+		p.config.Architecture = "linux"
 	}
 	errs := new(packersdk.MultiError)
 
@@ -149,9 +149,9 @@ func (p *PostProcessor) Configure(raws ...interface{}) error {
 			errs, fmt.Errorf("invalid boot mode '%s'. Only 'uefi' and 'legacy-bios' are allowed", p.config.BootMode))
 	}
 
-	if p.config.Platform != "windows" && p.config.Platform != "linux" {
+	if p.config.Platform != "linux" && p.config.Platform != "windows" {
 		errs = packersdk.MultiErrorAppend(
-			errs, fmt.Errorf("invalid platform '%s'. Only 'windows' and 'linux' are allowed", p.config.Platform))
+			errs, fmt.Errorf("invalid platform '%s'. Only 'linux' and 'windows' are allowed", p.config.Platform))
 	}
 
 	if p.config.Architecture == "arm64" && p.config.BootMode != "uefi" {
